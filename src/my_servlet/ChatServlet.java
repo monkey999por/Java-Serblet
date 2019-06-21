@@ -1,24 +1,28 @@
-package test_servlet;
+package my_servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import my_model.values.ChatValues;
 
 /**
- * Servlet implementation class TestServlet
+ * Servlet implementation class ChatServlet
  */
-@WebServlet("/TestServlet")
-public class TestServlet extends HttpServlet {
+@WebServlet("./ChatServlet")
+public class ChatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestServlet() {
+    public ChatServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,11 +38,17 @@ public class TestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String test_value = "";
-		test_value = request.getParameter("test_value");
+		request.setCharacterEncoding("UTF-8");
 		
 		
+		ChatValues ChatValues = new ChatValues();
+		ChatValues.ChatLogic(request.getParameter("Chat_value"));
 		
+		HttpSession mySession = request.getSession();
+		mySession.setAttribute("ChatModel", ChatValues);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("./index.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }
