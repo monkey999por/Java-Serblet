@@ -4,7 +4,7 @@ import java.util.Date;
 
 public  class MyCommon {
 	public static Date _today;
-	
+
 	/**
 	 * @return 今日の日付 yyyy/mm/dd hh:mm:ss 
 	 */

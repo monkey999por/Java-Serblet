@@ -1,6 +1,7 @@
 package setvlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.logic.ChatLogic;
 import model.values.ChatValues;
 
 /**
@@ -19,6 +21,7 @@ import model.values.ChatValues;
 public class ChatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String user_name, message;
+	List<String> disp_list;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,15 +46,14 @@ public class ChatServlet extends HttpServlet {
 		
 		user_name = request.getParameter("user_name");
 		message = request.getParameter("message");
-		user_name = (user_name == null)  ? "unknown" : user_name;
-		message = (message == null)  ? "" : message;
 		
-		ChatValues chatValues = new ChatValues(user_name, message);
+		ChatValues chatValues = new ChatValues(user_name, message)	;
+		disp_list = ChatLogic.createChat(chatValues);
 		
 		HttpSession mySession = request.getSession();
-		mySession.setAttribute("chatValues", chatValues);
+		mySession.setAttribute("disp_list", disp_list);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("respons.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 }
