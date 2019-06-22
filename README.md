@@ -1,2 +1,0 @@
-# Java-Serblet
-Java EEでいろいろやる
