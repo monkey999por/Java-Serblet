@@ -43,12 +43,14 @@ public class ChatServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
 		user_name = request.getParameter("user_name");
 		message = request.getParameter("message");
 		
 		ChatValues chatValues = new ChatValues(user_name, message)	;
-		disp_list = ChatLogic.createChat(chatValues);
+		ChatLogic.createChat(chatValues);
+		
+		
 		
 		HttpSession mySession = request.getSession();
 		mySession.setAttribute("disp_list", disp_list);

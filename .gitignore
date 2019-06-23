@@ -2,3 +2,5 @@
 /build
 /.classpath
 /.project
+/*.xlsx
+/WebContent/META-INF/context.xml

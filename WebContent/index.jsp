@@ -43,8 +43,6 @@
 <p style="font-weight: 700; font-style: oblique; font-size: 150%; color: #65edc4">chat room</p>
 <p>-------------------------------------------------------------</p>
 
-
-
 <% List<String> dispList = (ArrayList<String>) session.getAttribute("disp_list"); %>
 	<%try{ %>
 		<%if ( ! (dispList == null)){ %>

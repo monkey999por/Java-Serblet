@@ -1,12 +1,25 @@
 package model.values;
 
+import java.util.Map;
+
 import model.MyCommon;
 
 public class ChatValues {
 	private String user_name = "";
 	private String message = "";
 	private String createAt;
+	
+	private Map<String, String> message_list;
 
+	public Map<String, String> getMessage_list() {
+		return message_list;
+	}
+	public void setMessage_list(Map<String, String> message_list) {
+		this.message_list = message_list;
+	}
+	public void setCreateAt(String createAt) {
+		this.createAt = createAt;
+	}
 	public ChatValues() {}
 	/**
 	 * @param user_name

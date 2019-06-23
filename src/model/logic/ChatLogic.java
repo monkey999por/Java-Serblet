@@ -3,6 +3,7 @@ package model.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.execute.ChatDAO;
 import model.values.ChatValues;
 
 /**
@@ -17,7 +18,12 @@ public class ChatLogic {
 	 * @param chatValues
 	 * @return 連番：ユーザ：つぶやき
 	 */
-	public static List<String> createChat(ChatValues chatValues) {
+	public static void createChat(ChatValues chatValues) {
+		//DBにメッセージをセットする、ユーザはなければ作る
+		ChatDAO.setMessage(chatValues);
+	}	
+		
+	public static void displyChat(ChatValues chatValues) {
 		if (disply_list ==null) {
 			disply_list= new ArrayList<String>();
 		}
@@ -27,4 +33,5 @@ public class ChatLogic {
 		return disply_list;
 		
 	}
+	
 }
