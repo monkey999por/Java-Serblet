@@ -30,7 +30,7 @@ public class ChatLogic {
 		String disply_str = ( disply_list.size() +1 )+ ":" + chatValues.getUser_name() + ":"  + chatValues.getMessage() ;
 		disply_list.add(disply_str);
 		
-		return disply_list;
+		
 		
 	}
 	
