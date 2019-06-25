@@ -14,21 +14,6 @@ import model.values.ChatValues;
  */
 public class ChatDAO {
 	public static Connection connection = null;
-	/**
-	 * @param vind_str
-	 * @return user_name
-	 */
-	public static String setUser(String vind_str) {
-		try {
-			
-			PreparedStatement preparedStatement = ConnectionDB.connectDB_mysql().prepareStatement(ChatSQL.get_user);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}finally {
-				ConnectionDB.disconnectDB();
-			}
-				return "";
-	}
 	
 	/**
 	 * @param chatValues
@@ -58,11 +43,20 @@ public class ChatDAO {
 				ConnectionDB.disconnectDB();
 			}		
 	}
-	public static void test() {
+	public static void getAll(ChatValues chatValues) {
 		try {
-			PreparedStatement preparedStatement=ConnectionDB.connectDB_mysql().prepareStatement(ChatSQL.set_message);
+			connection = ConnectionDB.connectDB_mysql();
+			PreparedStatement preparedStatement=connection.prepareStatement(ChatSQL.get_all);
 			ResultSet result = preparedStatement.executeQuery();
-			String message = result.getString("message");
+			
+			//ほんとはこんなことしたくない
+			ChatValues.getDisPlayList().clear();
+			while (result.next()) {
+				String user_name = result.getString("user_name");
+				String message = result.getString("message");
+				ChatValues.getDisPlayList().add(user_name + " : \"" +message + "\"");
+			}
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {

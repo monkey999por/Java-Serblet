@@ -4,7 +4,7 @@ public class ChatSQL {
 	
 //	SELECT
 	public final static String get_user = "SELECT * FROM my_chat.user WHERE user_name = ?";
-	public final static String get_message_all = "SELECT * FROM my_chat.message";
+	public final static String get_all = "SELECT user_name, message FROM my_chat.message";
 	public final static String get_message_for_user =
 			"SELECT * FROM my_chat.message "
 					+ "INNER JOIN my_chat.user"

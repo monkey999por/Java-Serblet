@@ -1,7 +1,6 @@
 package setvlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,9 +19,10 @@ import model.values.ChatValues;
 @WebServlet("/ChatServlet")
 public class ChatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ChatValues chatValues;
 	String user_name, message;
-	List<String> disp_list;
-       
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,7 +35,15 @@ public class ChatServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		chatValues = ChatValues.getChatValues("");
+//		チャットを表示する
+		chatValues = ChatLogic.displyChatAll(chatValues);
 		
+		HttpSession mySession = request.getSession();
+		mySession.setAttribute("chatValues", chatValues);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -43,17 +51,21 @@ public class ChatServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
+		
 		user_name = request.getParameter("user_name");
 		message = request.getParameter("message");
 		
-		ChatValues chatValues = new ChatValues(user_name, message)	;
+		chatValues = ChatValues.getChatValues(user_name);
+		chatValues.setMessage(message);
+		
+//		チャットをDBに登録
 		ChatLogic.createChat(chatValues);
 		
-		
-		
+//		チャットを表示する
+		chatValues = ChatLogic.displyChatAll(chatValues);
+
 		HttpSession mySession = request.getSession();
-		mySession.setAttribute("disp_list", disp_list);
+		mySession.setAttribute("chatValues", chatValues);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);

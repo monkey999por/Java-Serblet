@@ -1,8 +1,5 @@
 package model.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dao.execute.ChatDAO;
 import model.values.ChatValues;
 
@@ -11,27 +8,29 @@ import model.values.ChatValues;
  *
  */
 public class ChatLogic {
-	//ChatValuesの値を整形した文字列
-	public static List<String>  disply_list;
+	
+	
+	public static void getLoginUser() {
+		
+	}
+
+	/**
+	 * @param chatValues
+	 * DBにメッセージをセットする、ユーザはなければ作る
+	 */
+	public static void createChat(ChatValues chatValues) {
+		ChatDAO.setMessage(chatValues);
+	}
 	
 	/**
 	 * @param chatValues
-	 * @return 連番：ユーザ：つぶやき
+	 * @return ChatValues
 	 */
-	public static void createChat(ChatValues chatValues) {
-		//DBにメッセージをセットする、ユーザはなければ作る
-		ChatDAO.setMessage(chatValues);
-	}	
-		
-	public static void displyChat(ChatValues chatValues) {
-		if (disply_list ==null) {
-			disply_list= new ArrayList<String>();
-		}
-		String disply_str = ( disply_list.size() +1 )+ ":" + chatValues.getUser_name() + ":"  + chatValues.getMessage() ;
-		disply_list.add(disply_str);
-		
-		
-		
+	public static ChatValues displyChatAll(ChatValues chatValues) {
+//		全部読んでリストに追加
+		 ChatDAO.getAll(chatValues);
+		return chatValues;
 	}
+	
 	
 }

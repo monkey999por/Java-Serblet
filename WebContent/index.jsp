@@ -1,13 +1,14 @@
+<%@page import="java.util.Map"%>
 <%@page import="javax.swing.text.html.ListView"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %> 
+<%@ page import="model.values.*" %> 
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="./WebContent/lib/index.css">
+<link rel="stylesheet" type="text/css" href="index.css">
 
 <title>タイトルだお！</title>
 </head>
@@ -26,15 +27,17 @@
 </div>
 <br>
 
+<% ChatValues chatValues = (ChatValues) session.getAttribute("chatValues"); %>
 <form method="post"  action="<%=request.getContextPath() %>/ChatServlet">
 	<span style="color: #7e6000">結果表示あり</span><input type="checkbox"  name="isDisplay" checked="checked" /> <span style="color: #7e6000">※未実装</span>
 	<br>
 		<!-- ---------------------User------------------------------ -->
 		User Name <span style="margin-right: 23px"></span> :    
-		<input type="text" name="user_name" value="user1"/><br>		
+		<%  %>
+		<input type="text" name="user_name" value="${chatValues.getUser_name()}"/><br>		
 		<!-- ---------------------Message------------------------------ -->
 		Add Message<span style="margin-right: 7px"></span> :
-		<input type="text" name="message" value="test"/><br>
+		<input type="text" name="message" value=""><br>
 		<!-- ---------------------Submit------------------------------ -->
 		Start Request<span style="margin-right: 1px"></span> :
 		<input type="submit" value="↷ Request " id="_submit"/>
@@ -43,17 +46,18 @@
 <p style="font-weight: 700; font-style: oblique; font-size: 150%; color: #65edc4">chat room</p>
 <p>-------------------------------------------------------------</p>
 
-<% List<String> dispList = (ArrayList<String>) session.getAttribute("disp_list"); %>
+
 	<%try{ %>
-		<%if ( ! (dispList == null)){ %>
-			<% for ( String value : dispList ) { %><br>
-				<%=value %>
+		<%if ( ! (chatValues == null)){ %>
+			<%
+				for (String entry : ChatValues.getDisPlayList()){
+			%><br>
+				<%= entry %>
 			<% } %>
 		<% } %>
 	<%}catch(Exception e){ %>
 		<p style = "color: red">リソースがありません</p>
 <% }%>
-
 
 </body>
 </html>

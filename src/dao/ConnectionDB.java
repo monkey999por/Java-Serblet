@@ -31,6 +31,7 @@ public class ConnectionDB {
 		try {
 			if (my_connection!=null) {
 				my_connection.close();
+				my_connection = null;
 			}
 		} catch (Exception e2) {
 			e2.printStackTrace();
