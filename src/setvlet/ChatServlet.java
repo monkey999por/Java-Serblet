@@ -35,7 +35,14 @@ public class ChatServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		chatValues = ChatValues.getChatValues("");
+		//再取得の時はユーザ名をresetしない　未実装
+		if (Boolean.parseBoolean(request.getParameter("Reacquire"))) {
+			user_name = request.getParameter("user_name");
+			chatValues = ChatValues.getChatValues(user_name);
+		} else {
+			chatValues = ChatValues.getChatValues("");	
+		}
+		
 //		チャットを表示する
 		chatValues = ChatLogic.displyChatAll(chatValues);
 		

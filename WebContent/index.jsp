@@ -34,7 +34,7 @@
 		<!-- ---------------------User------------------------------ -->
 		User Name <span style="margin-right: 23px"></span> :    
 		<%  %>
-		<input type="text" name="user_name" value="${chatValues.getUser_name()}"/><br>		
+		<input type="text" name="user_name"  value="${chatValues.getUser_name()}"/><br>		
 		<!-- ---------------------Message------------------------------ -->
 		Add Message<span style="margin-right: 7px"></span> :
 		<input type="text" name="message" value=""><br>
@@ -42,7 +42,11 @@
 		Start Request<span style="margin-right: 1px"></span> :
 		<input type="submit" value="↷ Request " id="_submit"/>
 </form>
-
+<form method="GET" action="<%=request.getContextPath() %>/ChatServlet">
+	<input type="hidden" name="Reacquire" value="true">
+	<input type="hidden"  name="user_name" />
+	<input type="submit" value="再取得">
+</form>
 <p style="font-weight: 700; font-style: oblique; font-size: 150%; color: #65edc4">chat room</p>
 <p>-------------------------------------------------------------</p>
 
