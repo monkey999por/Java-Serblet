@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.logic.ChatLogic;
+import model.values.ChatUser;
 import model.values.ChatValues;
 
 /**
@@ -43,11 +44,16 @@ public class ChatServlet extends HttpServlet {
 			chatValues = ChatValues.getChatValues("");	
 		}
 		
+//	　ユーザーリストの表示
+		ChatUser chatUserList = ChatUser.getChatUser();
+		ChatLogic.setUserAll(chatUserList);		
+		
 //		チャットを表示する
 		chatValues = ChatLogic.displyChatAll(chatValues);
 		
 		HttpSession mySession = request.getSession();
 		mySession.setAttribute("chatValues", chatValues);
+		mySession.setAttribute("chatUserList", chatUserList);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
@@ -65,14 +71,17 @@ public class ChatServlet extends HttpServlet {
 		chatValues = ChatValues.getChatValues(user_name);
 		chatValues.setMessage(message);
 		
-//		チャットをDBに登録
-		ChatLogic.createChat(chatValues);
-		
 //		チャットを表示する
+		ChatLogic.createChat(chatValues);
 		chatValues = ChatLogic.displyChatAll(chatValues);
+		
+//		ユーザーリストの表示
+		ChatUser chatUserList = ChatUser.getChatUser();
+		ChatLogic.setUserAll(chatUserList);		
 
 		HttpSession mySession = request.getSession();
 		mySession.setAttribute("chatValues", chatValues);
+		mySession.setAttribute("chatUserList", chatUserList);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);

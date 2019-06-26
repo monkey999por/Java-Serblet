@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import dao.ConnectionDB;
 import dao.sql.ChatSQL;
+import model.values.ChatUser;
 import model.values.ChatValues;
 
 /**
@@ -63,4 +64,27 @@ public class ChatDAO {
 				ConnectionDB.disconnectDB();
 			}		
 	}
+	
+	/**
+	 * @param chatUserList
+	 */
+	public static void getAllUser(ChatUser chatUserList) {
+		try {
+			connection = ConnectionDB.connectDB_mysql();
+			PreparedStatement preparedStatement=connection.prepareStatement(ChatSQL.get_all_user);
+			ResultSet result = preparedStatement.executeQuery();
+			
+			ChatUser.getUserList().clear();
+			while (result.next()) {
+				String user_name = result.getString("user_name");
+				ChatUser.getUserList().add(user_name);
+			}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				ConnectionDB.disconnectDB();
+			}		
+	}
+	
 }

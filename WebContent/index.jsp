@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="javax.swing.text.html.ListView"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -28,20 +30,42 @@
 <br>
 
 <% ChatValues chatValues = (ChatValues) session.getAttribute("chatValues"); %>
-<form method="post"  action="<%=request.getContextPath() %>/ChatServlet">
-	<span style="color: #7e6000">結果表示あり</span><input type="checkbox"  name="isDisplay" checked="checked" /> <span style="color: #7e6000">※未実装</span>
-	<br>
-		<!-- ---------------------User------------------------------ -->
-		User Name <span style="margin-right: 23px"></span> :    
-		<%  %>
-		<input type="text" name="user_name"  value="${chatValues.getUser_name()}"/><br>		
-		<!-- ---------------------Message------------------------------ -->
-		Add Message<span style="margin-right: 7px"></span> :
-		<input type="text" name="message" value=""><br>
-		<!-- ---------------------Submit------------------------------ -->
-		Start Request<span style="margin-right: 1px"></span> :
-		<input type="submit" value="↷ Request " id="_submit"/>
+<div id="main">
+<div id="main_input" style=" display: inline-block; vertical-align: top;">
+	<form method="post"  action="<%=request.getContextPath() %>/ChatServlet">
+		<span style="color: #7e6000">結果表示あり</span><input type="checkbox"  name="isDisplay" checked="checked" /> <span style="color: #7e6000">※未実装</span>
+		<br>
+			<!-- ---------------------User------------------------------ -->
+			User Name <span style="margin-right: 23px"></span> :    
+	
+			<input type="text" name="user_name"  value="${chatValues.getUser_name()}"/><br>		
+			<!-- ---------------------Message------------------------------ -->
+			Add Message<span style="margin-right: 7px"></span> :
+			<input type="text" name="message" value=""><br>
+			<!-- ---------------------Submit------------------------------ -->
+			Start Request<span style="margin-right: 1px"></span> :
+			<input type="submit" value="↷ Request " id="_submit"/>
 </form>
+</div>
+
+<div id="login_user_list" style="float: right; display: inline-block; vertical-align: top;"">
+	ログイン中のユーザー<br>
+	<%ChatUser chatUserList = (ChatUser) session.getAttribute("chatUserList"); %>
+<%try{ %>
+	<%if ( ! (chatUserList == null)){ %>
+		<%for (String user : ChatUser.getUserList()) {%>
+			<%= user %><br>
+		<% } %>
+	<% } %>
+<%}catch(Exception e){ %>
+		<p style = "color: red">no one lievs here</p>
+<% }%>
+	
+</div>
+
+</div>
+
+<!-- ごみ -->
 <form method="GET" action="<%=request.getContextPath() %>/ChatServlet">
 	<input type="hidden" name="Reacquire" value="true">
 	<input type="hidden"  name="user_name" />
@@ -50,13 +74,12 @@
 <p style="font-weight: 700; font-style: oblique; font-size: 150%; color: #65edc4">chat room</p>
 <p>-------------------------------------------------------------</p>
 
-
 	<%try{ %>
 		<%if ( ! (chatValues == null)){ %>
 			<%
 				for (String entry : ChatValues.getDisPlayList()){
-			%><br>
-				<%= entry %>
+			%>
+				<%= entry %><br>
 			<% } %>
 		<% } %>
 	<%}catch(Exception e){ %>

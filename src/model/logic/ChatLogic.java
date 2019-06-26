@@ -1,6 +1,7 @@
 package model.logic;
 
 import dao.execute.ChatDAO;
+import model.values.ChatUser;
 import model.values.ChatValues;
 
 /**
@@ -9,9 +10,8 @@ import model.values.ChatValues;
  */
 public class ChatLogic {
 	
-	
-	public static void getLoginUser() {
-		
+	public static void setUserAll(ChatUser chatUserList) {
+		ChatDAO.getAllUser(chatUserList);
 	}
 
 	/**
