@@ -64,6 +64,29 @@ public class ChatDAO {
 				ConnectionDB.disconnectDB();
 			}		
 	}
+	public static void getChatForUserRetrive(ChatValues chatValues) {
+		try {
+			connection = ConnectionDB.connectDB_mysql();
+			PreparedStatement preparedStatement=connection.prepareStatement(ChatSQL.get_message_for_user);
+			preparedStatement.setString(1,chatValues.getUser_name());
+			ResultSet result = preparedStatement.executeQuery();
+			
+			//ほんとはこんなことしたくない
+			ChatValues.getDisPlayList().clear();
+			while (result.next()) {
+				String user_name = result.getString("user.user_name");
+				String message = result.getString("message.message");
+				ChatValues.getDisPlayList().add(user_name + " : \"" +message + "\"");
+			}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				ConnectionDB.disconnectDB();
+			}		
+	}
+	
+	
 	
 	/**
 	 * @param chatUserList

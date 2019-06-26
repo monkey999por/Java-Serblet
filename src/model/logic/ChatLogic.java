@@ -55,5 +55,11 @@ public class ChatLogic {
 		return chatValues;
 	}
 	
+	public static ChatValues getChatForUser(ChatValues chatValues) {
+//		全部読んでリストに追加
+		 ChatDAO.getChatForUserRetrive(chatValues);
+		return chatValues;
+	}
+	
 	
 }

@@ -44,7 +44,7 @@ public class ChatServlet extends HttpServlet {
 			user_name = request.getParameter("user_name");
 			chatValues = ChatValues.getChatValues(user_name);
 		} else {
-			chatValues = ChatValues.getChatValues("");	
+			chatValues = ChatValues.getChatValues("unknown");	
 		}
 		
 //	　ユーザーリストの表示

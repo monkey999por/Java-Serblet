@@ -16,23 +16,20 @@
 </head>
 
 <body style="background-color: #1f1300; color: white" >
-<h1 style="font-weight: 700; font-style: oblique; color: green" >ヘッダーを追加するお!(^ω^)</h1>
+<h2 style="font-weight: 700; font-style: oblique; color: green" >welcome to underground...</h2>
 
 <div class="descreption" >
-<div style="font-weight: 700; font-style: oblique; font-size: 150%; color: #d048ff">descreption</div>
-	--Web アプリケーションマッピングに関連付けられたパス接頭辞を指定します。<br>
-	--Web サーバの URL ネーム空間のルートディレクトリにあるデフォルトのアプリケーションの場合、<br>
-	--コンテキストパスは空の文字列になります。デフォルト以外のアプリケーションの場合、コンテキス<br>
-	--トパスは、スラッシュ (/) で始まりますが、スラッシュで終了しません。たとえば、/techniques は<br>
-	--/techniques を含んでいるリクエストを techniques アプリケーションへマッピングします。<br>
-	--request.getContextPath メソッドは、コンテキストパスを示す文字列を返します。<br>
+<div style="font-weight:500; font-style: oblique; font-size: 100%; color: #d048ff">descreption</div>
+	--ほらあ<br>
+	--test<br>
+	
 </div>
 <br>
 
 <% ChatValues chatValues = (ChatValues) session.getAttribute("chatValues"); %>
 <%ChatUser chatUser = (ChatUser) session.getAttribute("chatUser"); %>
 <div id="main">
-<div id="main_input" style=" display: inline-block; vertical-align: top;">
+<div id="main_message" style=" display: inline-block; vertical-align: top;">
 	<form method="post"  action="<%=request.getContextPath() %>/ChatServlet">
 		<span style="color: #7e6000">結果表示あり</span><input type="checkbox"  name="isDisplay" checked="checked" /> <span style="color: #7e6000">※未実装</span>
 		<br>
@@ -40,6 +37,7 @@
 			<% if (ChatUser.is_exist_same_use){ %>
 				<div style="color: red; font-weight: bold;">このユーザ名は使えません</div>
 			<%} %>		
+			<span style="color: #46ffff">***************Message***************</span><br>
 			<!-- ---------------------User------------------------------ -->
 			User Name <span style="margin-right: 23px"></span> :    
 			<input type="text" name="user_name"  value=""/><br>
@@ -47,9 +45,21 @@
 			Add Message<span style="margin-right: 7px"></span> :
 			<input type="text" name="message" value=""><br>
 			<!-- ---------------------Submit------------------------------ -->
-			Start Request<span style="margin-right: 1px"></span> :
-			<input type="submit" value="↷ Request " id="_submit"/>
-</form>
+			Start Request<span style="margin-right: 4px"></span> :
+			<input type="submit" value="↷ Request " id="_submit"/><br>
+	</form>
+</div>
+<div id="main_search"></div>
+	<form method="post"  action="<%=request.getContextPath() %>/SearchServlet">
+		<span style="color: #99f535">***************Search****************</span><br>
+		User Name <span style="margin-right: 23px"></span> :    
+		<input type="text" name="user_name"  value=""/><br>	
+		Start Request<span style="margin-right: 4px"></span> :
+		<input type="submit" value="↷ Search " id="_submit"/><br>
+	</form>	
+</div>
+<div id="main_search"></div>
+	<span style="color: #d1f535">***************Other*****************</span><br>
 </div>
 
 <div id="login_user_list" style="float: right; display: inline-block; vertical-align: top;"">
@@ -64,7 +74,6 @@
 			<p style = "color: red">no one lievs here</p>
 	<% }%>
 </div>
-
 </div>
 
 <!-- ごみ -->
