@@ -10,7 +10,30 @@ import model.values.ChatValues;
  */
 public class ChatLogic {
 	
-	public static void setUserAll(ChatUser chatUserList) {
+	/**
+	 * @param user_name
+	 * @return boolean
+	 * 同じユーザが存在する ture
+	 *  同じユーザが存在しない false
+	 */
+	public static boolean isExistSameUser(String user_name)	{
+//		ユーザー名はかぶらせない
+		for (String user : ChatUser.getUserList()) {
+			if (user.equals(user_name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static void registrationUser (String user_name){
+		if (! isExistSameUser(user_name)){
+			ChatDAO.registerUser(user_name);
+		}
+	}
+	
+	
+	public static void getUserAll(ChatUser chatUserList) {
 		ChatDAO.getAllUser(chatUserList);
 	}
 

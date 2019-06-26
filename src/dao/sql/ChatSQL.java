@@ -14,6 +14,8 @@ public class ChatSQL {
 	public final static String set_message = 
 			"insert into my_chat.message (user_name, message)\r\n" + 
 			"values (?, ?)";
+	
+	public final static String register_user = "insert into my_chat.user (user_name) values (?)";
 //	UPDATE
 //	DELETE
 }

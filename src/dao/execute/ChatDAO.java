@@ -87,4 +87,21 @@ public class ChatDAO {
 			}		
 	}
 	
+	public static void registerUser(String user_name) {
+		try {
+			connection = ConnectionDB.connectDB_mysql();
+			PreparedStatement preparedStatement = connection.prepareStatement(ChatSQL.register_user);
+			
+			preparedStatement.setString(1,user_name);
+			connection.setAutoCommit(false);
+			preparedStatement.executeUpdate();
+			connection.commit();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				ConnectionDB.disconnectDB();
+			}		
+	}
+
 }

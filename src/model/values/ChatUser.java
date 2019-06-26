@@ -14,4 +14,7 @@ public class ChatUser {
 		return chatUser;
 	}
 	
+	public static boolean is_exist_same_use;
+	
+	
 }

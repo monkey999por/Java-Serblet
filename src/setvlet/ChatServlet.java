@@ -36,6 +36,9 @@ public class ChatServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		init
+		ChatUser.is_exist_same_use = false;
+		
 		//再取得の時はユーザ名をresetしない　未実装
 		if (Boolean.parseBoolean(request.getParameter("Reacquire"))) {
 			user_name = request.getParameter("user_name");
@@ -45,15 +48,15 @@ public class ChatServlet extends HttpServlet {
 		}
 		
 //	　ユーザーリストの表示
-		ChatUser chatUserList = ChatUser.getChatUser();
-		ChatLogic.setUserAll(chatUserList);		
+		ChatUser chatUser = ChatUser.getChatUser();
+		ChatLogic.getUserAll(chatUser);		
 		
 //		チャットを表示する
 		chatValues = ChatLogic.displyChatAll(chatValues);
 		
 		HttpSession mySession = request.getSession();
 		mySession.setAttribute("chatValues", chatValues);
-		mySession.setAttribute("chatUserList", chatUserList);
+		mySession.setAttribute("chatUser", chatUser);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
@@ -74,14 +77,20 @@ public class ChatServlet extends HttpServlet {
 //		チャットを表示する
 		ChatLogic.createChat(chatValues);
 		chatValues = ChatLogic.displyChatAll(chatValues);
+
+//		ユーザの登録 同じユーザがいなければ登録、いればエラー
+		ChatUser.is_exist_same_use = ChatLogic.isExistSameUser(user_name);
+		if  ( ! ChatUser.is_exist_same_use ) {
+			ChatLogic.registrationUser(user_name);
+		}
 		
 //		ユーザーリストの表示
-		ChatUser chatUserList = ChatUser.getChatUser();
-		ChatLogic.setUserAll(chatUserList);		
+		ChatUser chatUser = ChatUser.getChatUser();
+		ChatLogic.getUserAll(chatUser);
 
 		HttpSession mySession = request.getSession();
 		mySession.setAttribute("chatValues", chatValues);
-		mySession.setAttribute("chatUserList", chatUserList);
+		mySession.setAttribute("chatUser", chatUser);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);

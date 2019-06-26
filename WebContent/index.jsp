@@ -30,15 +30,19 @@
 <br>
 
 <% ChatValues chatValues = (ChatValues) session.getAttribute("chatValues"); %>
+<%ChatUser chatUser = (ChatUser) session.getAttribute("chatUser"); %>
 <div id="main">
 <div id="main_input" style=" display: inline-block; vertical-align: top;">
 	<form method="post"  action="<%=request.getContextPath() %>/ChatServlet">
 		<span style="color: #7e6000">結果表示あり</span><input type="checkbox"  name="isDisplay" checked="checked" /> <span style="color: #7e6000">※未実装</span>
 		<br>
+			<!-- 同一ユーザチェック -->
+			<% if (ChatUser.is_exist_same_use){ %>
+				<div style="color: red; font-weight: bold;">このユーザ名は使えません</div>
+			<%} %>		
 			<!-- ---------------------User------------------------------ -->
 			User Name <span style="margin-right: 23px"></span> :    
-	
-			<input type="text" name="user_name"  value="${chatValues.getUser_name()}"/><br>		
+			<input type="text" name="user_name"  value="${chatValues.getUser_name()}"/><br>
 			<!-- ---------------------Message------------------------------ -->
 			Add Message<span style="margin-right: 7px"></span> :
 			<input type="text" name="message" value=""><br>
@@ -50,9 +54,8 @@
 
 <div id="login_user_list" style="float: right; display: inline-block; vertical-align: top;"">
 	ログイン中のユーザー<br>
-	<%ChatUser chatUserList = (ChatUser) session.getAttribute("chatUserList"); %>
 <%try{ %>
-	<%if ( ! (chatUserList == null)){ %>
+	<%if ( ! (chatUser == null)){ %>
 		<%for (String user : ChatUser.getUserList()) {%>
 			<%= user %><br>
 		<% } %>
