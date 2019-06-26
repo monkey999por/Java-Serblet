@@ -42,7 +42,7 @@
 			<%} %>		
 			<!-- ---------------------User------------------------------ -->
 			User Name <span style="margin-right: 23px"></span> :    
-			<input type="text" name="user_name"  value="${chatValues.getUser_name()}"/><br>
+			<input type="text" name="user_name"  value=""/><br>
 			<!-- ---------------------Message------------------------------ -->
 			Add Message<span style="margin-right: 7px"></span> :
 			<input type="text" name="message" value=""><br>
@@ -54,16 +54,15 @@
 
 <div id="login_user_list" style="float: right; display: inline-block; vertical-align: top;"">
 	ログイン中のユーザー<br>
-<%try{ %>
-	<%if ( ! (chatUser == null)){ %>
-		<%for (String user : ChatUser.getUserList()) {%>
-			<%= user %><br>
+	<%try{ %>
+		<%if ( ! (chatUser == null)){ %>
+			<%for (String user : ChatUser.getUserList()) {%>
+				<%= user %><br>
+			<% } %>
 		<% } %>
-	<% } %>
-<%}catch(Exception e){ %>
-		<p style = "color: red">no one lievs here</p>
-<% }%>
-	
+	<%}catch(Exception e){ %>
+			<p style = "color: red">no one lievs here</p>
+	<% }%>
 </div>
 
 </div>
@@ -76,18 +75,19 @@
 </form>
 <p style="font-weight: 700; font-style: oblique; font-size: 150%; color: #65edc4">chat room</p>
 <p>-------------------------------------------------------------</p>
-
+<div >
 	<%try{ %>
 		<%if ( ! (chatValues == null)){ %>
 			<%
 				for (String entry : ChatValues.getDisPlayList()){
 			%>
-				<%= entry %><br>
+				<span id="message_list" ><%= entry %></span><br>
 			<% } %>
 		<% } %>
 	<%}catch(Exception e){ %>
 		<p style = "color: red">リソースがありません</p>
-<% }%>
+	<% }%>
+</div>
 
 </body>
 </html>
