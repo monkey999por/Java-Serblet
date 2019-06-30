@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cookie.MyCookie;
 import model.logic.ChatLogic;
 import model.values.ChatUser;
 import model.values.ChatValues;
@@ -71,7 +72,12 @@ public class ChatServlet extends HttpServlet {
 		message = request.getParameter("message");
 		password = request.getParameter("password");
 		
-		
+//		Cookie: user_name
+		MyCookie cookie  = new MyCookie();
+		if( MyCookie.getCookie(request, "user_name") == null ){
+			MyCookie.setCookie(response, "user_name", user_name);
+		}
+
 		chatValues = ChatValues.getChatValues(user_name);
 		chatValues.setMessage(message);
 		

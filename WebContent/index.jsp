@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="model.values.*" %> 
+<%@ page import="cookie.MyCookie" %>
 
 <!DOCTYPE html>
 <html>
@@ -36,15 +37,13 @@
 				<!-- 同一ユーザチェック -->
 				<% if (ChatUser.is_exist_same_use){ %>
 					<div style="color: red; font-weight: bold;">このユーザ名は使えません</div>
-				<%} %>		
+				<%} %>
 				<span style="color: #46ffff">***************Message***************</span><br>
 				<!-- ---------------------User------------------------------ -->
-				User Name <span style="margin-right: 23px"></span> :    
-				<input type="text" name="user_name"  value=""/><br>
-				
-				<!-- ---------------------User------------------------------ -->
-				Password <span style="margin-right: 36px"></span> :    
-				<input type="text" name="password"  value=""/><br>
+				User Name <span style="margin-right: 23px"></span> :
+				<% String user_name = MyCookie.getCookie(request, "user_name"); %>    
+				<input type="text" name="user_name"  value="<%=user_name ==null ? "" : user_name %>"/><br>
+
 				<!-- ---------------------Message------------------------------ -->
 				Add Message<span style="margin-right: 7px"></span> :
 				<input type="text" name="message" value=""><br>

@@ -14,7 +14,7 @@
 
         //valueがnullの場合のみCookieをセットする(期限は5分)
         if (value == null) {
-                CookieTest.setCookie(request, response, "/", "test_cookie_name", "test_cookie_value", 5 * 60);
+                CookieTest.setCookie(request, response, "/", "test_cookie_name", "test_kkvalue", 5 * 60);
         }
 	%>
         取得した値="<%= value%>"<br>
