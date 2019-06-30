@@ -21,8 +21,7 @@ import model.values.ChatValues;
 public class ChatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ChatValues chatValues;
-	String user_name, message;
-	
+	String user_name, message, password;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -70,6 +69,8 @@ public class ChatServlet extends HttpServlet {
 		
 		user_name = request.getParameter("user_name");
 		message = request.getParameter("message");
+		password = request.getParameter("password");
+		
 		
 		chatValues = ChatValues.getChatValues(user_name);
 		chatValues.setMessage(message);
