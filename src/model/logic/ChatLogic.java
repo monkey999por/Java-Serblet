@@ -26,10 +26,11 @@ public class ChatLogic {
 		return false;
 	}
 	
-	public static void registrationUser (String user_name){
+	public static void registrationUser (String user_name) throws Exception{
 		if (! isExistSameUser(user_name)){
 			ChatDAO.registerUser(user_name);
-		}
+		}else
+			throw new Exception()	;
 	}
 	
 	
