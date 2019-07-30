@@ -28,13 +28,13 @@
 <% ChatValues chatValues = (ChatValues) session.getAttribute("chatValues"); %>
 <%ChatUser chatUser = (ChatUser) session.getAttribute("chatUser"); %>
 <div id="main" style="float: left;	 display: inline-block; vertical-align: top; ">
-	
+	<!-- add message -->
 	<div id="main_message" style=" display: inline-block; vertical-align: top; color: #aee4bf;">
 		<span style="color: #ffc9ff">****************Request***************</span><br>
 		<form method="post"  action="<%=request.getContextPath() %>/ChatServlet">
 			<span style="color: #7e6000">結果表示あり</span><input type="checkbox"  name="isDisplay" checked="checked" /> <span style="color: #7e6000">※未実装</span><br>
 			
-				<!-- 同一ユーザチェック -->
+				<!-- same user check -->
 				<% if (ChatUser.is_exist_same_use){ %>
 					<div style="color: red; font-weight: bold;">このユーザ名は使えません</div>
 				<%} %>
